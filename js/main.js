@@ -66,7 +66,7 @@ images.forEach((element, i) => {
     carouselImageContainer.classList.add("carousel-image-container");
     carouselContainer.append(carouselImageContainer);
 
-    // Rendo visibile SOLO la prima immagine
+    // Rendo visibile SOLO la prima immagine. Devo settare l'active su css
     if (i === 0) {
         carouselImageContainer.classList.add("active");
     }
@@ -76,5 +76,22 @@ images.forEach((element, i) => {
     carouselImage.classList.add("carousel-image");
     carouselImage.setAttribute("src", element.image);
     carouselImageContainer.append(carouselImage);
+
+    // Creo dinamicamente il container che conterrà il titolo e la descrizione dell'immagine
+    const carouselTextContainer = document.createElement("div");
+    carouselImageContainer.append(carouselTextContainer);
+    carouselTextContainer.classList.add("carousel-text-container");
+
+    // Creo dinamicamente i titoli delle immagini
+    const carouselImgTitle = document.createElement("h4");
+    carouselTextContainer.append(carouselImgTitle);
+    carouselImgTitle.innerHTML += element.title;
+
+    // Creo dinamicamente le descrizioni delle immagini
+    const carouselImgText = document.createElement("p");
+    carouselTextContainer.append(carouselImgText);
+    carouselImgText.innerHTML+=  element.text;
+
+
 
 })
