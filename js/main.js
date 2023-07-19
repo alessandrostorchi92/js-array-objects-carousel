@@ -66,16 +66,15 @@ images.forEach((element, i) => {
     carouselImageContainer.classList.add("carousel-image-container");
     carouselContainer.append(carouselImageContainer);
 
-    // Rendo visibile la prima immagine
-    if (i === 0) {
-        carouselImageContainer.classList.add("active");
-    }
-
     //creo dinamicamente le immagini
     const carouselImage = document.createElement("img");
     carouselImage.classList.add("carousel-image");
     carouselImage.setAttribute("src", element.image);
     carouselImageContainer.append(carouselImage);
-
+    
+    // Rendo visibile SOLO la prima immagine
+    if (i === 0) {
+        carouselImage.classList.add("active");
+    }
 
 })
