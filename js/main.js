@@ -24,8 +24,12 @@
 const carouselContainer = document.querySelector(".carousel-container");
 
 // Creo le variabili per i buttons
-const prevBtn = document.getElementById("carousel-prev-btn");
 const nextBtn = document.getElementById("carousel-next-btn");
+const prevBtn = document.getElementById("carousel-prev-btn");
+
+//Creo una variabile globale che al momento del click sui buttons imposterà quale immagine del carosello verrà visualizzata dall'utente
+let currentImgIndex = 0;
+
 
 //Creo l'array degli oggetti aventi come contenuto le immagini da inserire nel carosello
 const images = [
@@ -58,9 +62,6 @@ images.forEach((element, i) => {
     // Controllo che il ciclio forEach funzioni
     console.log(`${element.image} ${element.title} ${element.text}`);
 
-    const currentImage = images[i].image;
-    console.log(currentImage);
-
     //creo dinamicamente i containers delle immagini del carosello
     const carouselImageContainer = document.createElement("div");
     carouselImageContainer.classList.add("carousel-image-container");
@@ -90,8 +91,55 @@ images.forEach((element, i) => {
     // Creo dinamicamente le descrizioni delle immagini
     const carouselImgText = document.createElement("p");
     carouselTextContainer.append(carouselImgText);
-    carouselImgText.innerHTML+=  element.text;
-
-
+    carouselImgText.innerHTML += element.text;
 
 })
+
+// Invoco la funzione goToNextImg che verrà attivata al click del nextBtn
+
+nextBtn.addEventListener("click", goToNextImg);
+
+// Dichiaros la funzione goToNextImg che verrà attivata al click del nextBtn
+function goToNextImg() {
+
+    // Tolgo la classe active dall'elemento che ha questa classe
+    document.querySelector(".carousel-image-container.active").classList.remove("active");
+
+    // Recupero tutti gli elementi che hanno la classe .carousel-image-container per formare un array.
+    const imageElements = document.querySelectorAll(".carousel-image-container ");
+
+    // Solo cosi posso possare allo step successivo
+
+    // Dall'elemento attualmente attivo rimuovo la classe "active" 
+    imageElements[currentImgIndex].classList.remove("active");
+
+    // Incremento il contatore globale
+    currentImgIndex++;
+
+    // Siccome ora il currentImgIndex è incrementato di uno,lo uso per assegnare la classe active all'elemento successivo
+    imageElements[currentImgIndex].classList.add("active");
+}
+
+// Invoco la funzione goToPreviousImg che verrà attivata al click del nextBtn
+prevBtn.addEventListener("click", goToPreviousImg);
+
+// Dichiaros la funzione goToPreviousImg che verrà attivata al click del prevBtn
+function goToPreviousImg() {
+
+    // Tolgo la classe active dall'elemento che ha questa classe
+    document.querySelector(".carousel-image-container.active").classList.remove("active");
+
+    // Recupero tutti gli elementi che hanno la classe .carousel-image-container per formare un array.
+    const imageElements = document.querySelectorAll(".carousel-image-container ");
+
+    // Solo cosi posso possare allo step successivo
+
+    // Dall'elemento attualmente attivo rimuovo la classe "active" 
+    imageElements[currentImgIndex].classList.remove("active");
+
+    // Decremento il contatore globale
+    currentImgIndex--;
+
+    // Siccome ora il currentImgIndex è decrementato di uno,lo uso per assegnare la classe active all'elemento precedente
+    imageElements[currentImgIndex].classList.add("active");
+}
