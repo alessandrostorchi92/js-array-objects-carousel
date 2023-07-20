@@ -18,7 +18,7 @@
 // Partiamo prima dall'html statico perchè voglio avere prima l'html su cui lavorare per poter capire il css da applicare e, in seguito, apportare le modifiche su javascript
 // Una volta terminato questo passaggio lo rendo un commento, in quanto lo aggiungeremo di nuovo tramite javascript
 
-// Milestone 1:
+// Milestone 1 e Milestone 2:
 
 // Creo la variabile per il container del carosello
 const carouselContainer = document.querySelector(".carousel-container");
@@ -106,7 +106,10 @@ function goToNextImg() {
     document.querySelector(".carousel-image-container.active").classList.remove("active");
 
     // Recupero tutti gli elementi che hanno la classe .carousel-image-container per formare un array.
-    const imageElements = document.querySelectorAll(".carousel-image-container ");
+    const imageElements = document.querySelectorAll(".carousel-image-container");
+
+    // Controllo che sia effettivamente un array 
+    console.log(imageElements[currentImgIndex]);
 
     // Solo cosi posso possare allo step successivo
 
@@ -115,6 +118,14 @@ function goToNextImg() {
 
     // Incremento il contatore globale
     currentImgIndex++;
+
+    // Per rendere il ciclo infinito al click del button di destra quando l'indice della lista immagini supera il numero totale delle immagini allora al click si torna all'immagine iniziale
+
+    // Ricorda che l'indice di un array parte da 0, mentre imageElements.length parte da 1
+
+    if(currentImgIndex > imageElements.length - 1) {
+        currentImgIndex = 0;
+    }
 
     // Siccome ora il currentImgIndex è incrementato di uno,lo uso per assegnare la classe active all'elemento successivo
     imageElements[currentImgIndex].classList.add("active");
@@ -139,6 +150,14 @@ function goToPreviousImg() {
 
     // Decremento il contatore globale
     currentImgIndex--;
+
+     // Per rendere il ciclo infinito al click del button di sinistra quando l'indice della lista immagini è minore di 0allora al click si torna all'immagine finale
+
+    // Ricorda che l'indice di un array parte da 0, mentre imageElements.length parte da 1
+
+    if(currentImgIndex < 0) {
+        currentImgIndex = imageElements.length - 1;
+    }
 
     // Siccome ora il currentImgIndex è decrementato di uno,lo uso per assegnare la classe active all'elemento precedente
     imageElements[currentImgIndex].classList.add("active");
